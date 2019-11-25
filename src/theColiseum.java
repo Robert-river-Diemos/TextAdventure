@@ -168,6 +168,7 @@ public class theColiseum {
     private static void beginAdventure() {
 //        Scanner sc = new Scanner(System.in);
         System.out.println("What is your Name Adventurer?");
+        sc.nextLine();
         playerName = sc.nextLine();
         sc.nextLine();
         if (playerName.trim().equalsIgnoreCase("")) {
@@ -297,6 +298,8 @@ public class theColiseum {
         } else if (action.equalsIgnoreCase("c") || action.equalsIgnoreCase("run")) {
             System.out.println("there is not escape from the arena...");
             combat(playerStats, mobStats);
+        } else if(action.equalsIgnoreCase("quack")){
+            gameOver();
         }
 
         if (mobStats[0] <= 0) {
@@ -383,6 +386,7 @@ public class theColiseum {
             beginAdventure();
         } else if (continueGame.equalsIgnoreCase("no")) {
             System.out.println("Goodbye");
+            System.exit(0);
         } else {
             System.out.println("Not a valid input.");
             gameOver();
