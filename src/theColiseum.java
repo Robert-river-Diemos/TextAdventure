@@ -39,13 +39,13 @@ public class theColiseum {
 
         if (startArena.equalsIgnoreCase("yes")) {
             System.out.println("Then onward you go.");
-
+            Arena(PlayerHealth,PlayerAttackMax,PlayerPotions);
         } else if (startArena.equalsIgnoreCase("no")) {
             System.out.println("Too Bad, your going anyway");
-
+            Arena(PlayerHealth,PlayerAttackMax,PlayerPotions);
         } else {
             System.out.println("...off you go.");
-
+            Arena(PlayerHealth,PlayerAttackMax,PlayerPotions);
         }
 
 
@@ -53,6 +53,18 @@ public class theColiseum {
 
     private static void Arena(int playerHealth, int playerAttack, int playerPotions) {
         System.out.println("Here is comes your Opponent:");
+        System.out.println();
+        System.out.println("Now Entering:");
+        String mobName = monsterName();
+        int[] mobStats = generateMonsterStats();
+        int mobHealth = mobStats[0];
+        int mobAttack = mobStats[1];
+        System.out.printf("\"%s\"%nHealth: %s%nAttack: %s%n",mobName,mobHealth,mobAttack);
+
+        System.out.println("Let the Battle Begin!");
+        combat();
+
+
 
     }
 
@@ -69,6 +81,40 @@ public class theColiseum {
 
     private static void combat() {
 
+    }
+
+    private static int[] generateMonsterStats(){
+        Random rand = new Random();
+        int monsterHealth = rand.nextInt(199)+1;
+        int monsterAttack = rand.nextInt(20);
+        int[] returnArray = new int[2];
+        returnArray[0] = monsterHealth;
+        returnArray[1] = monsterAttack;
+
+        return returnArray;
+    }
+
+    private static String monsterName(){
+        String[] mobName = {"Bob","Phil","Dave","Kile","Joe","Rile","Steve"};
+        String[] mobTitle = {"the Slime","the Warrior","the goblin","the Coward","The Brave","the duck"};
+        Random rand = new Random();
+        return mobName[rand.nextInt(mobName.length-1)] + " " + mobTitle[rand.nextInt(mobTitle.length-1)];
+    }
+
+    private static void gameOver(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("GAME OVER!!!");
+        System.out.println("Restart? (yes/no)");
+        String continueGame = sc.next();
+        if(continueGame.equalsIgnoreCase("yes")){
+            System.out.println("restarting...");
+            beginAdventure();
+        }else if (continueGame.equalsIgnoreCase("no")){
+            System.out.println("Goodbye");
+        }else {
+            System.out.println("Not a valid input.");
+            gameOver();
+        }
     }
 
 
