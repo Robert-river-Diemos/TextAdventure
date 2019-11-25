@@ -84,7 +84,7 @@ public class theColiseum {
     }
 
 
-    private static void enemyTurn(int[] playerstats, int[] enemystats){
+    private static void enemyTurn(int[] playerstats, int[] enemystats, String mobName){
         Random rand = new Random();
         int move = rand.nextInt(2);
         int dmg = damageDone(enemystats[1]);
@@ -101,7 +101,7 @@ public class theColiseum {
                 break;
             }
         }
-        combat(playerstats, enemystats);
+        combat(playerstats, enemystats, String mobName);
     }
 
     private static void combat(int[] playerStats, int[] mobStats, String mobName) {
@@ -151,6 +151,7 @@ public class theColiseum {
             Arena(playerStats[0], playerStats[1], playerStats[2]);
         } else {
             System.out.println("Enemies Turn:");
+            enemyTurn(playerStats[],mobStats,mobName);
         }
         if (playerStats[0] <= 0) {
             gameOver();
