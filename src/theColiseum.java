@@ -112,6 +112,7 @@ public class theColiseum {
 
     private static void combat(int[] playerStats, int[] mobStats, String mobName) {
         Scanner sc = new Scanner(System.in);
+        Random random = new Random();
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Player Stats:");
         System.out.println();
@@ -144,6 +145,11 @@ public class theColiseum {
 
         if (mobStats[0] <= 0) {
             System.out.printf("%s Has Been Defeated!!!\n", mobName);
+            int hasPotion = random.nextInt(2);
+            if ( hasPotion == 1){
+                playerStats[2]++;
+                System.out.printf("You found a potion on %s. You now have %s potions. \n", mobName, playerStats[2]);
+            }
             System.out.println("You ready for the next Round? (yes/no)");
             String nextRound = sc.next();
             if (nextRound.equalsIgnoreCase("yes")) {
