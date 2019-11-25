@@ -61,8 +61,10 @@ public class theColiseum {
         int mobAttack = mobStats[1];
         System.out.printf("\"%s\"%nHealth: %s%nAttack: %s%n",mobName,mobHealth,mobAttack);
 
+        int[] playerStats = {playerHealth,playerAttack,playerPotions};
+
         System.out.println("Let the Battle Begin!");
-        combat();
+        combat(playerStats,mobStats);
 
 
 
@@ -79,8 +81,18 @@ public class theColiseum {
         return random.nextInt(24) + 1;
     }
 
-    private static void combat() {
+    private static void combat(int[] playerStats, int[] mobStats) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("What will you do?\nA.Attack\nB.Potion\nC.Run?");
+        String action = sc.next();
+        if (action.equalsIgnoreCase("a") || action.equalsIgnoreCase("attack")){
 
+        }else if (action.equalsIgnoreCase("b")||action.equalsIgnoreCase("potion")){
+
+        }else if (action.equalsIgnoreCase("c")||action.equalsIgnoreCase("run")){
+            System.out.println("there is not escape from the arena...");
+            combat(playerStats,mobStats);
+        }
     }
 
     private static int[] generateMonsterStats(){
