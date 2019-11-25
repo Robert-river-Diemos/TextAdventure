@@ -5,119 +5,115 @@ public class theColiseum {
     private static int score = 0;
     private static String playerName;
     private static String mobName;
-
-
-    public static void main(String[] args) {
-        beginGame();
-    }
-
-    public static String[] art = {
+    private static int playerMaxH;
+    private static int mobMaxH;
+    private static String[] art = {
             "  ,^.\n" +
-            "  |||\n" +
-            "  |||       _T_\n" +
-            "  |||   .-.[:|:].-.\n" +
-            "  ===_ /\\|  \"'\"  |/\n" +
-            "   E]_|\\/ \\--|-|''''|\n" +
-            "   O  `'  '=[:]| A  |\n" +
-            "          /\"\"\"\"|  P |\n" +
-            "         /\"\"\"\"\"`.__.'\n" +
-            "        []\"/\"\"\"\\\"[]\n" +
-            "        | \\     / |\n" +
-            "        | |     | |\n" +
-            "      <\\\\\\)     (///>",
+                    "  |||\n" +
+                    "  |||       _T_\n" +
+                    "  |||   .-.[:|:].-.\n" +
+                    "  ===_ /\\|  \"'\"  |/\n" +
+                    "   E]_|\\/ \\--|-|''''|\n" +
+                    "   O  `'  '=[:]| A  |\n" +
+                    "          /\"\"\"\"|  P |\n" +
+                    "         /\"\"\"\"\"`.__.'\n" +
+                    "        []\"/\"\"\"\\\"[]\n" +
+                    "        | \\     / |\n" +
+                    "        | |     | |\n" +
+                    "      <\\\\\\)     (///>",
 
             "                                 _A_\n" +
-            "                                / | \\\n" +
-            "                               |.-=-.|\n" +
-            "                               )\\_|_/(\n" +
-            "                            .=='\\   /`==.\n" +
-            "                          .'\\   (`:')   /`.\n" +
-            "                        _/_ |_.-' : `-._|__\\_\n" +
-            "                       <___>'\\    :   / `<___>\n" +
-            "                       /  /   >=======<  /  /\n" +
-            "                     _/ .'   /  ,-:-.  \\/=,'\n" +
-            "                    / _/    |__/v^v^v\\__) \\\n" +
-            "                    \\(\\)     |V^V^V^V^V|\\_/\n" +
-            "                     (\\\\     \\`---|---'/\n" +
-            "                       \\\\     \\-._|_,-/\n" +
-            "                        \\\\     |__|__|\n" +
-            "                         \\\\   <___X___>\n" +
-            "                          \\\\   \\..|../\n" +
-            "                           \\\\   \\ | /\n" +
-            "                            \\\\  /V|V\\\n" +
-            "                             \\|/  |  \\\n" +
-            "                              '--' `--` ",
+                    "                                / | \\\n" +
+                    "                               |.-=-.|\n" +
+                    "                               )\\_|_/(\n" +
+                    "                            .=='\\   /`==.\n" +
+                    "                          .'\\   (`:')   /`.\n" +
+                    "                        _/_ |_.-' : `-._|__\\_\n" +
+                    "                       <___>'\\    :   / `<___>\n" +
+                    "                       /  /   >=======<  /  /\n" +
+                    "                     _/ .'   /  ,-:-.  \\/=,'\n" +
+                    "                    / _/    |__/v^v^v\\__) \\\n" +
+                    "                    \\(\\)     |V^V^V^V^V|\\_/\n" +
+                    "                     (\\\\     \\`---|---'/\n" +
+                    "                       \\\\     \\-._|_,-/\n" +
+                    "                        \\\\     |__|__|\n" +
+                    "                         \\\\   <___X___>\n" +
+                    "                          \\\\   \\..|../\n" +
+                    "                           \\\\   \\ | /\n" +
+                    "                            \\\\  /V|V\\\n" +
+                    "                             \\|/  |  \\\n" +
+                    "                              '--' `--` ",
 
             "     /'\n" +
-            "     ||\n" +
-            "     ||      ** *\n" +
-            "     ||      __X_\n" +
-            "     ||     ( ___\\\n" +
-            "     ||     |:  \\\\\n" +
-            "    ><><  ___)..:/_#__,\n" +
-            "    (X|) (|+(____)+\\ _)\n" +
-            "     o|_\\/>> + + + << \\\n" +
-            "       |:\\/|+ + + +| \\_\\<\n" +
-            "       \\./  XXXXXX.  (o_)_\n" +
-            "           /+ + + |   \\:|\n" +
-            "          /+ +/+ +|  -/->>>----.\n" +
-            "         /+ +|+ /XX /   _--,  _ \\\n" +
-            "        \\+ + + /  |X   (,\\- \\/_ ,\n" +
-            "        /\\+ + /\\  |X \\    /,//_/\n" +
-            "       +_+_+_( )o_)X  \\  (( ///\n" +
-            "        (_o(  /__/ X   \\  \\\\//\n" +
-            "         \\_|  |_/  X    \\ ///\n" +
-            "         \\_| >(_/        \\,/\n" +
-            "    ,////__o\\ /__////,    V    ",
+                    "     ||\n" +
+                    "     ||      ** *\n" +
+                    "     ||      __X_\n" +
+                    "     ||     ( ___\\\n" +
+                    "     ||     |:  \\\\\n" +
+                    "    ><><  ___)..:/_#__,\n" +
+                    "    (X|) (|+(____)+\\ _)\n" +
+                    "     o|_\\/>> + + + << \\\n" +
+                    "       |:\\/|+ + + +| \\_\\<\n" +
+                    "       \\./  XXXXXX.  (o_)_\n" +
+                    "           /+ + + |   \\:|\n" +
+                    "          /+ +/+ +|  -/->>>----.\n" +
+                    "         /+ +|+ /XX /   _--,  _ \\\n" +
+                    "        \\+ + + /  |X   (,\\- \\/_ ,\n" +
+                    "        /\\+ + /\\  |X \\    /,//_/\n" +
+                    "       +_+_+_( )o_)X  \\  (( ///\n" +
+                    "        (_o(  /__/ X   \\  \\\\//\n" +
+                    "         \\_|  |_/  X    \\ ///\n" +
+                    "         \\_| >(_/        \\,/\n" +
+                    "    ,////__o\\ /__////,    V    ",
 
 
             "    ,   A           {}\n" +
-            "  / \\, | ,        .--.\n" +
-            " |    =|= >      /.--.\\\n" +
-            "  \\ /` | `       |====|\n" +
-            "   `   |         |`::`|\n" +
-            "       |     .-;`\\..../`;-.\n" +
-            "      /\\\\/  /  |...::...|  \\\n" +
-            "      |:'\\ |   /'''::'''\\   |\n" +
-            "       \\ /\\;-,/\\   ::   /\\--;\n" +
-            "       |\\ <` >  >._::_.<,<__>\n" +
-            "       | `\"\"`  /   ^^   \\|  |\n" +
-            "       |       |        |\\::/\n" +
-            "       |       |        |/|||\n" +
-            "       |       |___/\\___| '''\n" +
-            "       |        \\_ || _/\n" +
-            "       |        <_ >< _>\n" +
-            "       |        |  ||  |\n" +
-            "       |        |  ||  |\n" +
-            "       |       _\\.:||:./_\n" +
-            "       |      /____/\\____\\",
+                    "  / \\, | ,        .--.\n" +
+                    " |    =|= >      /.--.\\\n" +
+                    "  \\ /` | `       |====|\n" +
+                    "   `   |         |`::`|\n" +
+                    "       |     .-;`\\..../`;-.\n" +
+                    "      /\\\\/  /  |...::...|  \\\n" +
+                    "      |:'\\ |   /'''::'''\\   |\n" +
+                    "       \\ /\\;-,/\\   ::   /\\--;\n" +
+                    "       |\\ <` >  >._::_.<,<__>\n" +
+                    "       | `\"\"`  /   ^^   \\|  |\n" +
+                    "       |       |        |\\::/\n" +
+                    "       |       |        |/|||\n" +
+                    "       |       |___/\\___| '''\n" +
+                    "       |        \\_ || _/\n" +
+                    "       |        <_ >< _>\n" +
+                    "       |        |  ||  |\n" +
+                    "       |        |  ||  |\n" +
+                    "       |       _\\.:||:./_\n" +
+                    "       |      /____/\\____\\",
 
 
             "                          ,dM\n" +
-            "                         dMMP\n" +
-            "                        dMMM'\n" +
-            "                        \\MM/\n" +
-            "                        dMMm.\n" +
-            "                       dMMP'_\\---.\n" +
-            "                      _| _  p ;88;`.\n" +
-            "                    ,db; p >  ;8P|  `.\n" +
-            "                   (``T8b,__,'dP |   |\n" +
-            "                   |   `Y8b..dP  ;_  |\n" +
-            "                   |    |`T88P_ /  `\\;\n" +
-            "                   :_.-~|d8P'`Y/    /\n" +
-            "                    \\_   TP    ;   7`\\\n" +
-            "         ,,__        >   `._  /'  /   `\\_\n" +
-            "         `._ \"\"\"\"~~~~------|`\\;' ;     ,'\n" +
-            "            \"\"\"~~~-----~~~'\\__[|;' _.-'  `\\\n" +
-            "                    ;--..._     .-'-._     ;\n" +
-            "                   /      /`~~\"'   ,'`\\_ ,/\n" +
-            "                  ;_    /'        /    ,/\n" +
-            "                  | `~-l         ;    /\n" +
-            "                  `\\    ;       /\\.._|\n" +
-            "                    \\    \\      \\     \\\n" +
-            "                    /`---';      `----'\n" +
-            "                   (     /            fsc\n" +
-            "                    `---'",
+                    "                         dMMP\n" +
+                    "                        dMMM'\n" +
+                    "                        \\MM/\n" +
+                    "                        dMMm.\n" +
+                    "                       dMMP'_\\---.\n" +
+                    "                      _| _  p ;88;`.\n" +
+                    "                    ,db; p >  ;8P|  `.\n" +
+                    "                   (``T8b,__,'dP |   |\n" +
+                    "                   |   `Y8b..dP  ;_  |\n" +
+                    "                   |    |`T88P_ /  `\\;\n" +
+                    "                   :_.-~|d8P'`Y/    /\n" +
+                    "                    \\_   TP    ;   7`\\\n" +
+                    "         ,,__        >   `._  /'  /   `\\_\n" +
+                    "         `._ \"\"\"\"~~~~------|`\\;' ;     ,'\n" +
+                    "            \"\"\"~~~-----~~~'\\__[|;' _.-'  `\\\n" +
+                    "                    ;--..._     .-'-._     ;\n" +
+                    "                   /      /`~~\"'   ,'`\\_ ,/\n" +
+                    "                  ;_    /'        /    ,/\n" +
+                    "                  | `~-l         ;    /\n" +
+                    "                  `\\    ;       /\\.._|\n" +
+                    "                    \\    \\      \\     \\\n" +
+                    "                    /`---';      `----'\n" +
+                    "                   (     /            fsc\n" +
+                    "                    `---'",
 
             "                    _\n" +
                     "                    \\`\\\n" +
@@ -149,6 +145,10 @@ public class theColiseum {
                     "         /  _/\\                /"
     };
 
+    public static void main(String[] args) {
+        beginGame();
+    }
+
     private static void beginGame() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Shall we play a game? (Yes/No)");
@@ -173,6 +173,7 @@ public class theColiseum {
             beginAdventure();
         }
         int PlayerHealth = 100;
+        playerMaxH = PlayerHealth;
         int PlayerAttackMax = 30;
         int PlayerPotions = 5;
         score = 0;
@@ -206,6 +207,7 @@ public class theColiseum {
         mobName = monsterName();
         int[] mobStats = generateMonsterStats();
         int mobHealth = mobStats[0];
+        mobMaxH = mobHealth;
         int mobAttack = mobStats[1];
         System.out.printf("\"%s\"%nHealth: %s%nAttack: %s%n", mobName, mobHealth, mobAttack);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -230,7 +232,7 @@ public class theColiseum {
     }
 
 
-    private static void enemyTurn(int[] playerstats, int[] enemystats){
+    private static void enemyTurn(int[] playerstats, int[] enemystats) {
         Random rand = new Random();
         int move = rand.nextInt(2);
         int dmg = damageDone(enemystats[1]);
@@ -239,12 +241,18 @@ public class theColiseum {
             playerstats[0] -= dmg;
             System.out.printf("%s attacks %s for %s damage!\n", mobName, playerName, dmg);
         } else {
-            enemystats[0] += heal;
-            System.out.printf("Enemy used a potion and healed %s damage!\n", heal);
+            if (mobMaxH < enemystats[0]+ heal){
+                heal = mobMaxH - enemystats[0];
+                System.out.printf("Enemy used a potion and healed %s damage!\n", heal);
+                enemystats[0] = mobMaxH;
+            }else {
+                enemystats[0] += heal;
+                System.out.printf("Enemy used a potion and healed %s damage!\n", heal);
+            }
         }
-        if (playerstats[0] <= 0){
+        if (playerstats[0] <= 0) {
             gameOver();
-        }else {
+        } else {
             combat(playerstats, enemystats);
         }
 
@@ -254,7 +262,7 @@ public class theColiseum {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.printf("%s Stats:%n",playerName);
+        System.out.printf("%s Stats:%n", playerName);
         System.out.println();
         System.out.printf("Health: %s\nAttack: %s\nPotions: %s\n\n", playerStats[0], playerStats[1], playerStats[2]);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -264,14 +272,20 @@ public class theColiseum {
         if (action.equalsIgnoreCase("a") || action.equalsIgnoreCase("attack")) {
             System.out.println("Attacking...");
             int damage = damageDone(playerStats[1]);
-            System.out.printf("%s attacks %s for %s damage.\n", playerName,mobName, damage);
+            System.out.printf("%s attacks %s for %s damage.\n", playerName, mobName, damage);
             mobStats[0] -= damage;
         } else if (action.equalsIgnoreCase("b") || action.equalsIgnoreCase("potion")) {
             System.out.println("Using Potion...");
             if (playerStats[2] > 0) {
                 int heals = potionHeal();
-                System.out.printf("Potion heals %s for %s health",playerName,heals);
-                playerStats[0] += heals;
+                if (playerMaxH < playerStats[0]+heals){
+                    heals = playerMaxH - playerStats[0];
+                    System.out.printf("Potion heals %s for %s health", playerName, heals);
+                    playerStats[0] = playerMaxH;
+                }else {
+                    System.out.printf("Potion heals %s for %s health", playerName, heals);
+                    playerStats[0] += heals;
+                }
                 playerStats[2] -= 1;
                 System.out.printf("You have %s potions left\n", playerStats[2]);
             } else {
@@ -286,7 +300,7 @@ public class theColiseum {
         if (mobStats[0] <= 0) {
             System.out.printf("%s Has Been Defeated!!!\n", mobName);
             int hasPotion = random.nextInt(2);
-            if ( hasPotion == 1){
+            if (hasPotion == 1) {
                 playerStats[2]++;
                 System.out.printf("You found a potion on %s. You now have %s potions. \n", mobName, playerStats[2]);
             }
@@ -309,7 +323,7 @@ public class theColiseum {
             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("Enemies Turn:");
             System.out.println();
-            enemyTurn(playerStats,mobStats);
+            enemyTurn(playerStats, mobStats);
         }
 
 
@@ -338,26 +352,27 @@ public class theColiseum {
 
         System.out.printf(
                 "                 _  /)\n" +
-                "                 mo / )\n" +
-                "                 |/)\\)\n" +
-                "                  /\\_\n" +
-                "                  \\__|=\n" +
-                "                 (    )\n" +
-                "                 __)(__\n" +
-                "           _____/      \\\\_____\n" +
-                "          |  _     ___   _   ||\n" +
-                "          | | \\     |   | \\  ||\n" +
-                "          | |  |    |   |  | ||\n" +
-                "          | |_/     |   |_/  ||\n" +
-                "          | | \\     |   |    ||\n" +
-                "          | |  \\    |   |    ||\n" +
-                "          | |   \\. _|_. | .  ||\n" +
-                "          |                  ||\n" +
-                "                 s%          \n" +
-                "          |                  ||\n", playerName);
+
+                        "                 mo / )\n" +
+                        "                 |/)\\)\n" +
+                        "                  /\\_\n" +
+                        "                  \\__|=\n" +
+                        "                 (    )\n" +
+                        "                 __)(__\n" +
+                        "           _____/      \\\\_____\n" +
+                        "          |  _     ___   _   ||\n" +
+                        "          | | \\     |   | \\  ||\n" +
+                        "          | |  |    |   |  | ||\n" +
+                        "          | |_/     |   |_/  ||\n" +
+                        "          | | \\     |   |    ||\n" +
+                        "          | |  \\    |   |    ||\n" +
+                        "          | |   \\. _|_. | .  ||\n" +
+                        "          |                  ||\n" +
+                        "                 %s          \n" +
+                        "          |                  ||\n", playerName);
 
         System.out.println("GAME OVER!!!");
-        System.out.printf("Score: %s%n",score);
+        System.out.printf("Score: %s%n", score);
         System.out.println();
         System.out.println("Restart? (yes/no)");
         String continueGame = sc.next();
