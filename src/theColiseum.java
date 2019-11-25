@@ -7,6 +7,8 @@ public class theColiseum {
     private static String mobName;
     private static int playerMaxH;
     private static int mobMaxH;
+    private static Scanner sc = new Scanner(System.in);
+    private static Random rand = new Random();
     private static String[] art = {
             "  ,^.\n" +
                     "  |||\n" +
@@ -150,7 +152,7 @@ public class theColiseum {
     }
 
     private static void beginGame() {
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
         System.out.println("Shall we play a game? (Yes/No)");
         String playGame = sc.next();
         if (playGame.equalsIgnoreCase("yes")) {
@@ -164,8 +166,9 @@ public class theColiseum {
     }
 
     private static void beginAdventure() {
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
         System.out.println("What is your Name Adventurer?");
+        sc.nextLine();
         playerName = sc.nextLine();
         sc.nextLine();
         if (playerName.trim().equalsIgnoreCase("")) {
@@ -196,7 +199,7 @@ public class theColiseum {
 
 
     private static void Arena(int playerHealth, int playerAttack, int playerPotions) {
-        Random rand = new Random();
+//        Random rand = new Random();
         int randArt = rand.nextInt(art.length - 1);
         System.out.println("Here is comes your Opponent:");
         System.out.println();
@@ -222,18 +225,18 @@ public class theColiseum {
     }
 
     private static int damageDone(int maxDamage) {
-        Random rand = new Random();
+//        Random rand = new Random();
         return rand.nextInt(maxDamage);
     }
 
     private static int potionHeal() {
-        Random random = new Random();
-        return random.nextInt(24) + 1;
+//        Random rand = new Random();
+        return rand.nextInt(24) + 1;
     }
 
 
     private static void enemyTurn(int[] playerstats, int[] enemystats) {
-        Random rand = new Random();
+//        Random rand = new Random();
         int move = rand.nextInt(2);
         int dmg = damageDone(enemystats[1]);
         int heal = potionHeal();
@@ -259,8 +262,8 @@ public class theColiseum {
     }
 
     private static void combat(int[] playerStats, int[] mobStats) {
-        Scanner sc = new Scanner(System.in);
-        Random random = new Random();
+//        Scanner sc = new Scanner(System.in);
+//        Random rand = new Random();
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.printf("%s Stats:%n", playerName);
         System.out.println();
@@ -295,11 +298,13 @@ public class theColiseum {
         } else if (action.equalsIgnoreCase("c") || action.equalsIgnoreCase("run")) {
             System.out.println("there is not escape from the arena...");
             combat(playerStats, mobStats);
+        } else if(action.equalsIgnoreCase("quack")){
+            gameOver();
         }
 
         if (mobStats[0] <= 0) {
             System.out.printf("%s Has Been Defeated!!!\n", mobName);
-            int hasPotion = random.nextInt(2);
+            int hasPotion = rand.nextInt(2);
             if (hasPotion == 1) {
                 playerStats[2]++;
                 System.out.printf("You found a potion on %s. You now have %s potions. \n", mobName, playerStats[2]);
@@ -330,7 +335,7 @@ public class theColiseum {
     }
 
     private static int[] generateMonsterStats() {
-        Random rand = new Random();
+//        Random rand = new Random();
         int monsterHealth = rand.nextInt(99) + 1;
         int monsterAttack = rand.nextInt(25) + 1;
         int[] returnArray = new int[2];
@@ -343,12 +348,12 @@ public class theColiseum {
     private static String monsterName() {
         String[] mobNameC = {"Bob", "Phil", "Dave", "Kile", "Joe", "Rile", "Steve"};
         String[] mobTitle = {"the Slime", "the Warrior", "the goblin", "the Coward", "The Brave", "the duck"};
-        Random rand = new Random();
+//        Random rand = new Random();
         return mobNameC[rand.nextInt(mobNameC.length - 1)] + " " + mobTitle[rand.nextInt(mobTitle.length - 1)];
     }
 
     private static void gameOver() {
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
 
         System.out.printf(
                 "                 _  /)\n" +
@@ -381,6 +386,7 @@ public class theColiseum {
             beginAdventure();
         } else if (continueGame.equalsIgnoreCase("no")) {
             System.out.println("Goodbye");
+            System.exit(0);
         } else {
             System.out.println("Not a valid input.");
             gameOver();
