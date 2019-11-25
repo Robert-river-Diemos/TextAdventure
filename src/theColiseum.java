@@ -170,23 +170,21 @@ public class theColiseum {
         System.out.println("What is your Name Adventurer?");
         sc.nextLine();
         playerName = sc.nextLine();
-        sc.nextLine();
+//        sc.nextLine();
+        int PlayerHealth = 100;
+        playerMaxH = PlayerHealth;
+        int PlayerAttackMax = 30;
+        int PlayerPotions = 5;
         if (playerName.equalsIgnoreCase("wwssadadba")){
             System.out.println("Hello Konami!!!");
-            int PlayerHealth = 3000;
+            PlayerHealth = 3000;
             playerMaxH = PlayerHealth;
-            int PlayerAttackMax = 30;
-            int PlayerPotions = 30;
+            PlayerAttackMax = 100;
+            PlayerPotions = 30;
             playerName = "Konami!!!";
         }else if (playerName.trim().equalsIgnoreCase("")) {
             System.out.println("That is not a name...");
             beginAdventure();
-        }else {
-            int PlayerHealth = 100;
-            playerMaxH = PlayerHealth;
-            int PlayerAttackMax = 30;
-            int PlayerPotions = 5;
-
         }
         score = 0;
         System.out.printf("Welcome %s, to the Arena.%n%nAre you ready for your first challenge? (yes/no)%n", playerName);
