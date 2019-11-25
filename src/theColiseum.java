@@ -31,7 +31,7 @@ public class theColiseum {
             beginAdventure();
         }
         int PlayerHealth = 100;
-        int PlayerAttackMax = 15;
+        int PlayerAttackMax = 30;
         int PlayerPotions = 5;
 
         System.out.printf("Welcome %s, to the Arena.%n%nAre you ready for your first challenge? (yes/no)%n", playerName);
@@ -54,6 +54,7 @@ public class theColiseum {
     private static void Arena(int playerHealth, int playerAttack, int playerPotions) {
         System.out.println("Here is comes your Opponent:");
         System.out.println();
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Now Entering:");
         System.out.println();
         String mobName = monsterName();
@@ -61,7 +62,7 @@ public class theColiseum {
         int mobHealth = mobStats[0];
         int mobAttack = mobStats[1];
         System.out.printf("\"%s\"%nHealth: %s%nAttack: %s%n", mobName, mobHealth, mobAttack);
-
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         int[] playerStats = {playerHealth, playerAttack, playerPotions};
 
         System.out.println();
@@ -101,15 +102,23 @@ public class theColiseum {
                 break;
             }
         }
-        combat(playerstats, enemystats, String mobName);
+        if (playerstats[0] <= 0){
+            gameOver();
+        }else {
+            combat(playerstats, enemystats,mobName);
+        }
+
     }
 
     private static void combat(int[] playerStats, int[] mobStats, String mobName) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Player Stats:");
         System.out.println();
         System.out.printf("Health: %s\nAttack: %s\nPotions: %s\n\n", playerStats[0], playerStats[1], playerStats[2]);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("What will you do?\nA.Attack\nB.Potion\nC.Run?");
+
         String action = sc.next();
         if (action.equalsIgnoreCase("a") || action.equalsIgnoreCase("attack")) {
             System.out.println("Attacking...");
@@ -120,7 +129,7 @@ public class theColiseum {
             System.out.println("Using Potion...");
             if (playerStats[2] > 0) {
                 int heals = potionHeal();
-                System.out.printf("Potion heals you for %s health");
+                System.out.printf("Potion heals you for %s health",heals);
                 playerStats[0] += heals;
                 playerStats[2] -= 1;
                 System.out.printf("You have %s potions left\n", playerStats[2]);
@@ -132,10 +141,6 @@ public class theColiseum {
             System.out.println("there is not escape from the arena...");
             combat(playerStats, mobStats, mobName);
         }
-
-        System.out.println(mobName + ":");
-        System.out.printf("Health: %s%n", mobStats[0]);
-        System.out.printf("Attack: %s%n", mobStats[1]);
 
         if (mobStats[0] <= 0) {
             System.out.printf("%s Has Been Defeated!!!\n", mobName);
@@ -150,21 +155,23 @@ public class theColiseum {
             }
             Arena(playerStats[0], playerStats[1], playerStats[2]);
         } else {
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(mobName + ":");
+            System.out.printf("Health: %s%n", mobStats[0]);
+            System.out.printf("Attack: %s%n", mobStats[1]);
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("Enemies Turn:");
-            enemyTurn(playerStats[],mobStats,mobName);
+            System.out.println();
+            enemyTurn(playerStats,mobStats,mobName);
         }
-        if (playerStats[0] <= 0) {
-            gameOver();
-        } else {
-            combat(playerStats, mobStats, mobName);
-        }
-        enemyTurn(playerStats, mobStats);
+
+
     }
 
     private static int[] generateMonsterStats() {
         Random rand = new Random();
-        int monsterHealth = rand.nextInt(199) + 1;
-        int monsterAttack = rand.nextInt(20);
+        int monsterHealth = rand.nextInt(99) + 1;
+        int monsterAttack = rand.nextInt(20) + 1;
         int[] returnArray = new int[2];
         returnArray[0] = monsterHealth;
         returnArray[1] = monsterAttack;
