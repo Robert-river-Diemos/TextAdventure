@@ -83,6 +83,27 @@ public class theColiseum {
         return random.nextInt(24) + 1;
     }
 
+
+    private static void enemyTurn(int[] playerstats, int[] enemystats){
+        Random rand = new Random();
+        int move = rand.nextInt(2);
+        int dmg = damageDone(enemystats[1]);
+        int heal = potionHeal();
+        switch (move){
+            case 1: {
+                playerstats[0] -= dmg;
+                System.out.printf("You took %s damage!\n", dmg);
+                break;
+            }
+            default: {
+                enemystats[0] += heal;
+                System.out.printf("Enemy used a potion and healed %s damage!\n", heal);
+                break;
+            }
+        }
+        combat(playerstats, enemystats);
+    }
+
     private static void combat(int[] playerStats, int[] mobStats, String mobName) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Player Stats:");
@@ -136,6 +157,7 @@ public class theColiseum {
         } else {
             combat(playerStats, mobStats, mobName);
         }
+        enemyTurn(playerStats, mobStats);
     }
 
     private static int[] generateMonsterStats() {
