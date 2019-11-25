@@ -354,7 +354,7 @@ public class theColiseum {
                 "          | |   \\. _|_. | .  ||\n" +
                 "          |                  ||\n" +
                 "                 s%          \n" +
-                "          |                  ||\n", );
+                "          |                  ||\n", playerName);
 
         System.out.println("GAME OVER!!!");
         System.out.printf("Score: %s%n",score);
