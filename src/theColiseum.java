@@ -2,6 +2,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class theColiseum {
+    private static int score = 0;
+    private static String playerName;
+    private static String mobName;
+
 
     public static void main(String[] args) {
         beginGame();
@@ -162,7 +166,7 @@ public class theColiseum {
     private static void beginAdventure() {
         Scanner sc = new Scanner(System.in);
         System.out.println("What is your Name Adventurer?");
-        String playerName = sc.nextLine();
+        playerName = sc.nextLine();
         sc.nextLine();
         if (playerName.trim().equalsIgnoreCase("")) {
             System.out.println("That is not a name...");
@@ -171,26 +175,26 @@ public class theColiseum {
         int PlayerHealth = 100;
         int PlayerAttackMax = 30;
         int PlayerPotions = 5;
-        int score = 0;
-
+        score = 0;
         System.out.printf("Welcome %s, to the Arena.%n%nAre you ready for your first challenge? (yes/no)%n", playerName);
         String startArena = sc.next();
 
         if (startArena.equalsIgnoreCase("yes")) {
             System.out.println("Then onward you go.");
-            Arena(PlayerHealth, PlayerAttackMax, PlayerPotions,score);
+            Arena(PlayerHealth, PlayerAttackMax, PlayerPotions);
         } else if (startArena.equalsIgnoreCase("no")) {
             System.out.println("Too Bad, your going anyway");
-            Arena(PlayerHealth, PlayerAttackMax, PlayerPotions ,score);
+            Arena(PlayerHealth, PlayerAttackMax, PlayerPotions);
         } else {
             System.out.println("...off you go.");
-            Arena(PlayerHealth, PlayerAttackMax, PlayerPotions, score);
+            Arena(PlayerHealth, PlayerAttackMax, PlayerPotions);
         }
 
 
     }
 
-    private static void Arena(int playerHealth, int playerAttack, int playerPotions, int score) {
+
+    private static void Arena(int playerHealth, int playerAttack, int playerPotions) {
         Random rand = new Random();
         int randArt = rand.nextInt(art.length - 1);
         System.out.println("Here is comes your Opponent:");
@@ -199,7 +203,7 @@ public class theColiseum {
         System.out.println("Now Entering:");
         System.out.println(art[randArt]);
         System.out.println();
-        String mobName = monsterName();
+        mobName = monsterName();
         int[] mobStats = generateMonsterStats();
         int mobHealth = mobStats[0];
         int mobAttack = mobStats[1];
@@ -210,15 +214,14 @@ public class theColiseum {
         System.out.println();
         System.out.println("Let the Battle Begin!");
         System.out.println();
-        combat(playerStats, mobStats, mobName, score);
+        combat(playerStats, mobStats);
 
 
     }
 
     private static int damageDone(int maxDamage) {
         Random rand = new Random();
-        int damage = rand.nextInt(maxDamage);
-        return damage;
+        return rand.nextInt(maxDamage);
     }
 
     private static int potionHeal() {
@@ -227,36 +230,31 @@ public class theColiseum {
     }
 
 
-    private static void enemyTurn(int[] playerstats, int[] enemystats, String mobName, int score){
+    private static void enemyTurn(int[] playerstats, int[] enemystats){
         Random rand = new Random();
         int move = rand.nextInt(2);
         int dmg = damageDone(enemystats[1]);
         int heal = potionHeal();
-        switch (move){
-            case 1: {
-                playerstats[0] -= dmg;
-                System.out.printf("You took %s damage!\n", dmg);
-                break;
-            }
-            default: {
-                enemystats[0] += heal;
-                System.out.printf("Enemy used a potion and healed %s damage!\n", heal);
-                break;
-            }
+        if (move == 1) {
+            playerstats[0] -= dmg;
+            System.out.printf("%s attacks %s for %s damage!\n", mobName, playerName, dmg);
+        } else {
+            enemystats[0] += heal;
+            System.out.printf("Enemy used a potion and healed %s damage!\n", heal);
         }
         if (playerstats[0] <= 0){
-            gameOver(score);
+            gameOver();
         }else {
-            combat(playerstats, enemystats,mobName, score);
+            combat(playerstats, enemystats);
         }
 
     }
 
-    private static void combat(int[] playerStats, int[] mobStats, String mobName, int score) {
+    private static void combat(int[] playerStats, int[] mobStats) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("Player Stats:");
+        System.out.printf("%s Stats:%n",playerName);
         System.out.println();
         System.out.printf("Health: %s\nAttack: %s\nPotions: %s\n\n", playerStats[0], playerStats[1], playerStats[2]);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -266,23 +264,23 @@ public class theColiseum {
         if (action.equalsIgnoreCase("a") || action.equalsIgnoreCase("attack")) {
             System.out.println("Attacking...");
             int damage = damageDone(playerStats[1]);
-            System.out.printf("You attack for %s damage.\n", damage);
+            System.out.printf("%s attacks %s for %s damage.\n", playerName,mobName, damage);
             mobStats[0] -= damage;
         } else if (action.equalsIgnoreCase("b") || action.equalsIgnoreCase("potion")) {
             System.out.println("Using Potion...");
             if (playerStats[2] > 0) {
                 int heals = potionHeal();
-                System.out.printf("Potion heals you for %s health",heals);
+                System.out.printf("Potion heals %s for %s health",playerName,heals);
                 playerStats[0] += heals;
                 playerStats[2] -= 1;
                 System.out.printf("You have %s potions left\n", playerStats[2]);
             } else {
                 System.out.println("You Don't have any potions left...");
-                combat(playerStats, mobStats, mobName, score);
+                combat(playerStats, mobStats);
             }
         } else if (action.equalsIgnoreCase("c") || action.equalsIgnoreCase("run")) {
             System.out.println("there is not escape from the arena...");
-            combat(playerStats, mobStats, mobName, score);
+            combat(playerStats, mobStats);
         }
 
         if (mobStats[0] <= 0) {
@@ -302,7 +300,7 @@ public class theColiseum {
             } else {
                 System.out.println("I will take that as a yes...");
             }
-            Arena(playerStats[0], playerStats[1], playerStats[2] , score);
+            Arena(playerStats[0], playerStats[1], playerStats[2]);
         } else {
             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println(mobName + ":");
@@ -311,7 +309,7 @@ public class theColiseum {
             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("Enemies Turn:");
             System.out.println();
-            enemyTurn(playerStats,mobStats,mobName, score);
+            enemyTurn(playerStats,mobStats);
         }
 
 
@@ -329,13 +327,13 @@ public class theColiseum {
     }
 
     private static String monsterName() {
-        String[] mobName = {"Bob", "Phil", "Dave", "Kile", "Joe", "Rile", "Steve"};
+        String[] mobNameC = {"Bob", "Phil", "Dave", "Kile", "Joe", "Rile", "Steve"};
         String[] mobTitle = {"the Slime", "the Warrior", "the goblin", "the Coward", "The Brave", "the duck"};
         Random rand = new Random();
-        return mobName[rand.nextInt(mobName.length - 1)] + " " + mobTitle[rand.nextInt(mobTitle.length - 1)];
+        return mobNameC[rand.nextInt(mobNameC.length - 1)] + " " + mobTitle[rand.nextInt(mobTitle.length - 1)];
     }
 
-    private static void gameOver(int score) {
+    private static void gameOver() {
         Scanner sc = new Scanner(System.in);
 
         System.out.printf(
@@ -370,7 +368,7 @@ public class theColiseum {
             System.out.println("Goodbye");
         } else {
             System.out.println("Not a valid input.");
-            gameOver(score);
+            gameOver();
         }
     }
 }
