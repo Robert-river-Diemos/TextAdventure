@@ -11,7 +11,7 @@ public class theColiseum {
         beginGame();
     }
 
-    public static String[] art = {"" +
+    public static String[] art = {
             "  ,^.\n" +
             "  |||\n" +
             "  |||       _T_\n" +
@@ -26,7 +26,7 @@ public class theColiseum {
             "        | |     | |\n" +
             "      <\\\\\\)     (///>",
 
-    "                                         _A_\n" +
+            "                                 _A_\n" +
             "                                / | \\\n" +
             "                               |.-=-.|\n" +
             "                               )\\_|_/(\n" +
@@ -48,7 +48,7 @@ public class theColiseum {
             "                             \\|/  |  \\\n" +
             "                              '--' `--` ",
 
-    "             /'\n" +
+            "     /'\n" +
             "     ||\n" +
             "     ||      ** *\n" +
             "     ||      __X_\n" +
@@ -70,7 +70,8 @@ public class theColiseum {
             "         \\_| >(_/        \\,/\n" +
             "    ,////__o\\ /__////,    V    ",
 
-    "           ,   A           {}\n" +
+
+            "    ,   A           {}\n" +
             "  / \\, | ,        .--.\n" +
             " |    =|= >      /.--.\\\n" +
             "  \\ /` | `       |====|\n" +
@@ -90,7 +91,9 @@ public class theColiseum {
             "       |        |  ||  |\n" +
             "       |       _\\.:||:./_\n" +
             "       |      /____/\\____\\",
-    "                                 ,dM\n" +
+
+
+            "                          ,dM\n" +
             "                         dMMP\n" +
             "                        dMMM'\n" +
             "                        \\MM/\n" +
@@ -115,6 +118,35 @@ public class theColiseum {
             "                    /`---';      `----'\n" +
             "                   (     /            fsc\n" +
             "                    `---'",
+
+            "                    _\n" +
+                    "                    \\`\\\n" +
+                    "                     \\ \\\n" +
+                    "                      \\ \\\n" +
+                    "                       \\ \\\n" +
+                    "                        \\.\\\n" +
+                    "                         \\.\\\n" +
+                    "                          \\.\\  \n" +
+                    "                 _         \\.\\/)\n" +
+                    "            _ _-' ')__     (\\.\\/)\n" +
+                    "           /       /  \\.'`'-\\/)\\\\\n" +
+                    "           \\__ ,.-'(_  Y    (_\\.\\)\n" +
+                    "            / <     ,\\  \\    ,\\\\.\\\\\n" +
+                    "            \\_ \\ _. /y(_|    : |\\.\\|\n" +
+                    "             _\\_\\\\   |    : | \\.\\\n" +
+                    "            (   `'-._>/ )     \\|  \\.\\\n" +
+                    "            \\         `:=.    (\\   \\.\\\n" +
+                    "             \\_      (    `--._)`--'\\.\\=7\n" +
+                    "            _/|\\_    \\-._     `-:_ /```-3    \n" +
+                    "           /  |  `-   \\  t--._    Y    _3 \n" +
+                    "        ,-'   |       /  |   /``'-.\\--T x\\\n" +
+                    "      _/     _(    ,./  /   (          \\ x\\\n" +
+                    "         _.-/  \\  /    <     \\          \\ x\\\n" +
+                    "      <`'  /   |\\/      `-.   :          \\_x\\\n" +
+                    "       \\  /    |           `. |\n" +
+                    "        \\_|    /             `.\n" +
+                    "          |   /                `.\n" +
+                    "         /  _/\\                /"
     };
 
     private static void beginGame() {
@@ -161,11 +193,15 @@ public class theColiseum {
 
     }
 
+
     private static void Arena(int playerHealth, int playerAttack, int playerPotions) {
+        Random rand = new Random();
+        int randArt = rand.nextInt(art.length - 1);
         System.out.println("Here is comes your Opponent:");
         System.out.println();
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("Now Entering:");
+        System.out.println(art[randArt]);
         System.out.println();
         mobName = monsterName();
         int[] mobStats = generateMonsterStats();
@@ -299,6 +335,27 @@ public class theColiseum {
 
     private static void gameOver() {
         Scanner sc = new Scanner(System.in);
+
+        System.out.printf(
+                "                 _  /)\n" +
+                "                 mo / )\n" +
+                "                 |/)\\)\n" +
+                "                  /\\_\n" +
+                "                  \\__|=\n" +
+                "                 (    )\n" +
+                "                 __)(__\n" +
+                "           _____/      \\\\_____\n" +
+                "          |  _     ___   _   ||\n" +
+                "          | | \\     |   | \\  ||\n" +
+                "          | |  |    |   |  | ||\n" +
+                "          | |_/     |   |_/  ||\n" +
+                "          | | \\     |   |    ||\n" +
+                "          | |  \\    |   |    ||\n" +
+                "          | |   \\. _|_. | .  ||\n" +
+                "          |                  ||\n" +
+                "                 s%          \n" +
+                "          |                  ||\n", );
+
         System.out.println("GAME OVER!!!");
         System.out.printf("Score: %s%n",score);
         System.out.println();
@@ -314,6 +371,4 @@ public class theColiseum {
             gameOver();
         }
     }
-
-
 }
